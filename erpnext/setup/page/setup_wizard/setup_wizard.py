@@ -489,13 +489,21 @@ def create_logo(args):
 			frappe.db.set_value("Website Settings", "Website Settings", "brand_html",
 				"<img src='{0}' style='max-width: 40px; max-height: 25px;'> {1}".format(fileurl, args.get("company_name").strip()))
 
+# def add_all_roles_to(name):
+# 	user = frappe.get_doc("User", name)
+# 	for role in frappe.db.sql("""select name from tabRole"""):
+# 		if role[0] not in ["Administrator", "Guest", "All", "Customer", "Supplier", "Partner", "Employee"]:
+# 			d = user.append("user_roles")
+# 			d.role = role[0]
+# 	user.save()
+
+# TODO check admin roles
 def add_all_roles_to(name):
 	user = frappe.get_doc("User", name)
-	for role in frappe.db.sql("""select name from tabRole"""):
-		if role[0] not in ["Administrator", "Guest", "All", "Customer", "Supplier", "Partner", "Employee"]:
-			d = user.append("user_roles")
-			d.role = role[0]
+	d = user.append("user_roles")
+	d.role = "System Manager"
 	user.save()
+
 
 def create_territories():
 	"""create two default territories, one for home country and one named Rest of the World"""
