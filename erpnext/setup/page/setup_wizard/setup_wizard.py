@@ -17,6 +17,10 @@ from .sample_data import make_sample_data
 from erpnext.accounts.utils import FiscalYearError
 from erpnext.accounts.doctype.account.account import RootNotEditable
 
+# TODO
+# remove roles
+# remove modules
+
 @frappe.whitelist()
 def setup_account(args=None):
 	try:
