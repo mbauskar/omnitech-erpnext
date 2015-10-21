@@ -558,14 +558,14 @@ def create_users(args):
 			})
 
 			# default roles
-			user.append_roles("Projects User", "Stock User", "Support Team")
+			# user.append_roles("Projects User", "Stock User", "Support Team")
 
-			if args.get("user_sales_" + str(i)):
-				user.append_roles("Sales User", "Sales Manager", "Accounts User")
-			if args.get("user_purchaser_" + str(i)):
-				user.append_roles("Purchase User", "Purchase Manager", "Accounts User")
-			if args.get("user_accountant_" + str(i)):
-				user.append_roles("Accounts Manager", "Accounts User")
+			# if args.get("user_sales_" + str(i)):
+			# 	user.append_roles("Sales User", "Sales Manager", "Accounts User")
+			# if args.get("user_purchaser_" + str(i)):
+			# 	user.append_roles("Purchase User", "Purchase Manager", "Accounts User")
+			# if args.get("user_accountant_" + str(i)):
+			# 	user.append_roles("Accounts Manager", "Accounts User")
 
 			user.flags.delay_emails = True
 
