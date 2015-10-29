@@ -15,6 +15,7 @@ def after_install():
 	feature_setup()
 	from erpnext.setup.page.setup_wizard.setup_wizard import add_all_roles_to
 	add_all_roles_to("Administrator")
+	# TODO remove the admin roles
 	add_web_forms()
 	frappe.db.commit()
 

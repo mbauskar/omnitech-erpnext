@@ -499,7 +499,7 @@ def create_logo(args):
 # 		if role[0] not in ["Administrator", "Guest", "All", "Customer", "Supplier", "Partner", "Employee"]:
 # 			d = user.append("user_roles")
 # 			d.role = role[0]
-# 	user.save()
+# 	# user.save()
 
 # TODO check admin roles
 def add_all_roles_to(name):
@@ -507,7 +507,6 @@ def add_all_roles_to(name):
 	d = user.append("user_roles")
 	d.role = "System Manager"
 	user.save()
-
 
 def create_territories():
 	"""create two default territories, one for home country and one named Rest of the World"""
