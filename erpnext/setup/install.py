@@ -16,6 +16,7 @@ def after_install():
 	from erpnext.setup.page.setup_wizard.setup_wizard import add_all_roles_to
 	add_all_roles_to("Administrator")
 	# TODO remove the admin roles
+	remove_admin_roles()
 	add_web_forms()
 	frappe.db.commit()
 
@@ -59,3 +60,9 @@ def add_web_forms():
 		data_import=True)
 	import_file_by_path(frappe.get_app_path("erpnext", "setup/fixtures/web_form/addresses.json"),
 		data_import=True)
+
+def remove_admin_roles():
+
+	query = """ DELETE FROM tabUserRole WHERE parent='Administrator' and
+				role not in ('Administrator','%s')"""%("roles")	
+	pass
