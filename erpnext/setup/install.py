@@ -62,7 +62,17 @@ def add_web_forms():
 		data_import=True)
 
 def remove_admin_roles():
-
-	query = """ DELETE FROM tabUserRole WHERE parent='Administrator' and
-				role not in ('Administrator','%s')"""%("roles")	
-	pass
+	"""Remove all the Administrator roles except allowed roles"""
+	from omnitechapp.omnitechapp.doctype.package_detail.package_detail import get_allowed_roles
+	try:
+		roles = ["'%s'"%(role) for role in get_allowed_roles()]
+		
+		if not roles:
+			frappe.throw("Error occured during setup, Please contact Administrator")
+		
+		query = """ DELETE FROM tabUserRole WHERE parent='Administrator' AND
+					role NOT IN ('Administrator',%s)"""%(",".join(roles))
+		
+		frappe.db.sql(query)
+	except Exception, e:
+		frappe.throw(e)
