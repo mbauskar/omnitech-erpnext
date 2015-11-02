@@ -15,8 +15,6 @@ def after_install():
 	feature_setup()
 	from erpnext.setup.page.setup_wizard.setup_wizard import add_all_roles_to
 	add_all_roles_to("Administrator")
-	# TODO remove the admin roles
-	remove_admin_roles()
 	add_web_forms()
 	frappe.db.commit()
 
@@ -60,19 +58,3 @@ def add_web_forms():
 		data_import=True)
 	import_file_by_path(frappe.get_app_path("erpnext", "setup/fixtures/web_form/addresses.json"),
 		data_import=True)
-
-def remove_admin_roles():
-	"""Remove all the Administrator roles except allowed roles"""
-	from omnitechapp.omnitechapp.doctype.package_detail.package_detail import get_allowed_roles
-	try:
-		roles = ["'%s'"%(role) for role in get_allowed_roles()]
-		
-		if not roles:
-			frappe.throw("Error occured during setup, Please contact Administrator")
-		
-		query = """ DELETE FROM tabUserRole WHERE parent='Administrator' AND
-					role NOT IN ('Administrator',%s)"""%(",".join(roles))
-		
-		frappe.db.sql(query)
-	except Exception, e:
-		frappe.throw(e)
